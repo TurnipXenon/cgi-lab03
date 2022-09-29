@@ -37,7 +37,7 @@ def login_page():
     Returns the HTML for the login page.
     """
 
-    return _wrapper(r"""
+    return template_wrapper(r"""
     <h1> Welcome! </h1>
 
     <form method="POST" action="login.py">
@@ -56,7 +56,7 @@ def secret_page(username=None, password=None):
     if username is None or password is None:
         raise ValueError("You need to pass both username and password!")
 
-    return _wrapper("""
+    return template_wrapper("""
     <h1> Welcome, {username}! </h1>
 
     <p> <small> Pst! I know your password is
@@ -72,7 +72,7 @@ def after_login_incorrect():
     Returns the HTML for the page when the login credentials were typed
     incorrectly.
     """
-    return _wrapper(r"""
+    return template_wrapper(r"""
     <h1> Login incorrect :c </h1>
 
     <p> Incorrect username or password (hint: <span class="spoilers"> Check
@@ -81,7 +81,7 @@ def after_login_incorrect():
     """)
 
 
-def _wrapper(page):
+def template_wrapper(page):
     """
     Wraps some text in common HTML.
     """

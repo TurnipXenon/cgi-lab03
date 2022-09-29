@@ -2,6 +2,8 @@
 # -*- coding: UTF-8 -*-
 import cgi
 import cgitb
+import os
+import sys
 cgitb.enable()
 
 class FollowingTheTAsInstructionsError(Exception):
@@ -11,9 +13,15 @@ class FollowingTheTAsInstructionsError(Exception):
             "and to delete this error!"
         ))
 
-# Delete this line:
-raise FollowingTheTAsInstructionsError
+posted_bytes = os.environ.get("CONTENT_LENGTH", 0)
+if posted_bytes:
+    posted = sys.stdin.read(int(posted_bytes))
+    print(f"<p> POSTED: <pre>")
+    for line in posted.splitlines():
+        print(line)
+    print("</pre></p>")
 
 # Edit the following two lines:
-username = "<pick a username here>"
-password = "<pick a password here>"
+form = cgi.FieldStorage()
+username = form.getfirst("username")
+password = form.getfirst("password")
